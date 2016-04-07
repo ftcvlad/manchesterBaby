@@ -1,0 +1,48 @@
+; sums first N fibonacci numbers. When finished, answer is stored in accumulator	
+	VAR 0
+
+	LDN N	;make sure if n<=1, we stop program with sum 0
+	SUB MONE
+	CMP
+	JMP END		;jump to the end to store sum in accumulator
+	
+	STO N		;N always positive in mem
+	LDN N
+	STO N
+	
+	LDN NUM1	;NUM1 , NUM2 always positive in mem ; JUMP BACK TO HERE
+	SUB NUM2
+	STO NEWN 	; NEWN always negative in mem
+
+;update sum
+	LDN SUM 	;  SUM always negative as well in mem
+	STO SUM
+	LDN SUM 
+	SUB NUM2
+	STO SUM
+	
+;update num1
+	LDN NUM2
+	STO NUM1
+	LDN NUM1 	;change sign
+	STO NUM1
+
+;update num2
+	
+	LDN NEWN
+	STO NUM2
+
+	JMP START	;value stored at END points to this line
+	LDN SUM ; answer is saved in accummulator
+	STP
+
+NUM1: VAR 0
+NUM2: VAR 1
+N: VAR 9		;specify the number of fibonacci numers to sum
+START:VAR 0 ; jump to binary line 9
+END: VAR 22
+NEWN: VAR 0
+MONE: VAR -1
+ONE: VAR 1
+SUM: VAR 0
+

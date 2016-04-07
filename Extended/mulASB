@@ -1,0 +1,26 @@
+;This program multiplies NUMBER by COEFFICIENT.
+
+%MACRO MULTIPLY 4; PARAM1: NUMBER TO BE MULTIPLIED, PARAM2: COEFFICIENT, PARAM3: RESULT PARAM4: THIS LAST PARAMETER IS THE LABEL OF THE LINE IN WHICH THIS MACRO IS BEING CALLED
+	LOAD %3	;
+	ADD %1	;
+	STO %3 	;
+	LOAD %2	; LOAD COEFFICIENT
+	SUB #1	;
+	STO %2	;
+	CMP	; if the coefficient is 0, we're done. result is %3 - %1. If not, jump back to start of multiplication
+	JLP %4	;
+	LOAD %3	;
+	SUB %1	;
+	STO %3	;
+	ADD %1	;
+%ENDMACRO
+
+VAR 0			;
+START:		MULTIPLY NUMBER COEFFICIENT RESULT	START		;
+		;Multiplication complete. Result in RESULT.
+		LOAD RESULT;
+END:	STP		;
+
+NUMBER:		VAR 11	;
+COEFFICIENT:	VAR 8	;
+RESULT:		VAR 0	;

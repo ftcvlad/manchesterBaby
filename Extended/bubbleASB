@@ -1,0 +1,83 @@
+;sorts MYARR in ascending order. MYARR is surrounded by 2 VAR 252645135 for easier identification in store.
+
+VAR 0
+WHILE: LOAD SWAPPED
+	CMP
+	JLP ENDWHILE
+	LOAD #1		;change sign
+	STO SWAPPED
+	LOAD j
+	ADD #1
+	STO j
+	LDN #0 		;initialize i to 0
+	STO i
+;--------------- for loop
+	
+FOR: 	LDN MYARR	;load negatively
+	ADD j
+	ADD i
+	
+	CMP
+	JLP WHILE
+;----------------if
+
+	LOAD i
+	ADD #1
+	STO IPLUSONE
+	LOAD MYARR[IPLUSONE]
+	SUB MYARR[i]
+	SUB #1
+	CMP
+	JLP INCI
+;---------------within if
+	LOAD MYARR[i]
+	STO TMP
+
+	LOAD MYARR[IPLUSONE]
+	STO MYARR[i]
+
+	LOAD TMP
+	STO MYARR[IPLUSONE]
+
+	LOAD #-1	; change sign
+	STO SWAPPED
+;--- end of if
+
+INCI: LOAD i
+	ADD #1
+	STO i
+	JLP FOR
+ENDWHILE: STP
+
+
+SWAPPED: VAR -1
+j:VAR 0
+TMP: VAR 0
+VAR 252645135
+;MYARR: ARR   3 9 8 4 1 7 2 6 5 -1 -2 -8
+MYARR: ARR  2047 511 1023 255 127 1 15 63 31 7 3
+VAR 252645135
+i: VAR 0
+IPLUSONE: VAR 0
+
+
+
+
+;   boolean swapped = true;
+;   int j = 0;
+;   int tmp;
+;   while (swapped) {
+;           swapped = false;
+;          j++;
+;         for (int i = 0; i < arr.length - j; i++) {                                       
+;              if (arr[i] > arr[i + 1]) {                          
+;                     tmp = arr[i];
+;                    arr[i] = arr[i + 1];
+;                   arr[i + 1] = tmp;
+;                  swapped = true;
+;            }
+;     }                
+; }
+
+	
+

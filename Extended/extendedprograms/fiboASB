@@ -1,0 +1,42 @@
+;finds the Nth fibonacci number and displays it in the accumulator.
+MONE: VAR -1
+
+	LDN N	;make sure if n<=1, we stop program with sum 0
+	SUB MONE
+	CMP
+	JMP END		;jump to the end to store sum in accumulator
+	
+	STO N		;N always positive in mem
+	LDN N
+	STO N
+	
+	LDN NUM1	;NUM1 , NUM2 always positive in mem ; JUMP BACK TO HERE
+	SUB NUM2
+	STO NEWN 	; NEWN always negative in mem
+
+	
+;update num1
+	LDN NUM2
+	STO NUM1
+	LDN NUM1 	;change sign
+	STO NUM1
+
+;update num2
+	LDN NEWN
+	STO NUM2
+
+	JMP START	;value stored at END points to this line
+
+	LDN NUM1
+	STO NUM1	;use NUM1 to reverse the sign
+	LDN NUM1
+	
+	STP
+
+NUM1: VAR 0
+NUM2: VAR 1
+N: VAR 9		;specify the number of fibonacci numers to sum
+START:VAR 0 ; jump to binary line 0
+END: VAR 17
+NEWN: VAR 0
+ONE: VAR 1

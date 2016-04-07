@@ -1,0 +1,23 @@
+; sums all numbers in MYARR. Value shown in accummulator
+
+ZERO:	VAR 0	
+FOR:  	LDN MYARR
+	SUB i
+	CMP		;if index == array length 
+	JLP ENDFOR
+DO:     LDN i
+	STO i
+	LDN SUM
+	SUB MYARR[i]
+	STO SUM
+	LDN SUM	;to reverse sign...
+	STO SUM
+	LDN i
+	SUB #1
+	STO i
+	JLP FOR
+ENDFOR: LOAD SUM
+	STP
+MYARR: ARR 1 -2 32 4
+SUM: VAR 0
+i: VAR 0

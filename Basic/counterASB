@@ -1,0 +1,11 @@
+;This program counts up indefinitely
+;Store count at address zero
+COUNT: VAR 0;
+START: LDN COUNT; load in count and negate
+	SUB INCREMENT; subtract INCREMENT from accumulator
+	STO COUNT; store and load again to negate
+	LDN COUNT; display positive count
+	STO COUNT; store again
+	JMP ZERO;	loop back to count higher
+ZERO:	VAR 0;
+INCREMENT: VAR 1;

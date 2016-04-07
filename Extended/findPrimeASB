@@ -1,0 +1,72 @@
+; finds the first prime  number after n. Tries to divide only by numbers < sqrt(n)
+VAR 0
+
+	LOAD n
+	SUB #2
+	CMP
+	JLP NEXT	; if n<2 deal separately
+	LOAD #2
+	STO n
+	JLP OUT
+	
+NEXT:	LOAD n
+	ADD #1
+	STO n
+	LOAD #2
+	STO i
+
+WHI:	LOAD n
+	STO divideMe
+	LOAD #0
+	STO quotient
+DIV:	LOAD divideMe
+	SUB i
+	STO divideMe
+
+;-----first if : if (divideMe>0)
+
+	LOAD #0
+	SUB divideMe
+	CMP
+	JLP SKIP
+	LOAD quotient
+	ADD #1
+	STO quotient
+	JLP DIV
+
+
+
+;-- second if:	if (divideMe==0) ; divideMe can be only <=0 here!
+	
+SKIP: 	LOAD divideMe
+	CMP
+	JLP NEXT
+
+;--- third if: if (quotient-i<0)
+
+ 	LOAD i
+	SUB quotient
+	SUB #1
+	CMP
+	JLP OUT
+
+;-- end of 3rd if
+
+	LOAD i
+	ADD #1
+	STO i
+	JLP WHI
+
+OUT: LOAD n
+STP
+
+
+
+;declare variables
+n: 		VAR 23
+i: 		VAR 0
+quotient:	VAR 0
+remainder:	VAR 0;
+divideMe:	VAR 0;
+
+
